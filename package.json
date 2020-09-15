@@ -1,0 +1,52 @@
+{
+  "name": "matrix-jellyfin-bot",
+  "description": "A chatbot that reports jellyfin club activities",
+  "version": "0.1.0",
+  "author": "Nik0kin",
+  "bugs": {
+    "url": "https://github.com/nik0kin/matrix-jellyfin-bot/issues"
+  },
+  "dependencies": {
+    "matrix-bot-sdk": "^0.5.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.12",
+    "@types/node": "^11.10.5",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "eslint": "^7.9.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.4.2",
+    "nodemon": "^1.18.10",
+    "prettier": "^2.1.1",
+    "ts-jest": "^26.3.0",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.7.2"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/nik0kin/matrix-jellyfin-bot",
+  "keywords": [
+    "Bot",
+    "Matrix",
+    "Jellyfin"
+  ],
+  "license": "AGPL-3.0-or-later",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nik0kin/matrix-jellyfin-bot.git"
+  },
+  "scripts": {
+    "build": "tsc --module commonjs",
+    "build:watch": "tsc --module commonjs -w",
+    "coverage": "jest --collectCoverageFrom=src/**/*.ts --coverage",
+    "dev": "nodemon src/bootstrap.ts --dryrun",
+    "lint": "eslint . --ext .ts",
+    "start": "ts-node src/bootstrap.ts",
+    "test": "jest --watch"
+  },
+  "types": "dist/index.d.ts"
+}

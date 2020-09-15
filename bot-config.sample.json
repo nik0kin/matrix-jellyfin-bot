@@ -1,0 +1,5 @@
+{
+  "homeserverUrl": "https://localhost",
+  "matrixAccessToken": "YourSecretAccessToken",
+  "autoJoin": false
+}
