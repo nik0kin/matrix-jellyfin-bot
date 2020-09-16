@@ -1,0 +1,25 @@
+
+jellyfinServerUrl
+
+allowlist - optional list of users
+
+botExec = '!jellyfin'
+
+
+Feature 1: Simple search
+
+!jellyfin search Top Cat
+  -> View "[Top Cat](${topCatUrl}"
+
+url like: https://jellyfin/web/index.html#!/itemdetails.html?id=XXXX&serverId=YYYY
+
+!jellyfin search:5 Cat
+  -> Showing 3 results for "Cat"
+    1. "[Top Cat](..)"
+    2. "[Cat Videos Vol. 1](..)"
+    3. "[Cat Videos Vol. 3](..)"
+
+Feature 2: Get Random Media
+
+!jellyfin random "Top Cat"
+  -> View "[Top Cat](${topCatUrl}" ep 19 "[The Grand Tour](${epUrl}"

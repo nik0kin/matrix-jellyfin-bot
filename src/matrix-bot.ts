@@ -19,3 +19,44 @@ export function createMatrixClient(settings: Settings) {
   }
   return client;
 }
+
+export function sendBotMessage(
+  botClient: MatrixClient,
+  roomId: string,
+  message: string,
+  htmlFormattedMessage?: string
+) {
+  botClient.sendMessage(roomId, {
+    msgtype: 'm.notice',
+    body: message,
+    ...(htmlFormattedMessage
+      ? {
+          format: 'org.matrix.custom.html',
+          formatted_body: htmlFormattedMessage,
+        }
+      : {}),
+  });
+}
+
+export function sendBotReply(
+  botClient: MatrixClient,
+  roomId: string,
+  responds: {
+    sender: string;
+    message: string;
+  },
+  message: string,
+  htmlFormattedMessage?: string
+) {
+  botClient.sendMessage(roomId, {
+    msgtype: 'm.notice',
+    body: message,
+    responds,
+    ...(htmlFormattedMessage
+      ? {
+          format: 'org.matrix.custom.html',
+          formatted_body: htmlFormattedMessage,
+        }
+      : {}),
+  });
+}

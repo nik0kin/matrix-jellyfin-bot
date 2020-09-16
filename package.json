@@ -1,17 +1,20 @@
 {
   "name": "matrix-jellyfin-bot",
   "description": "A chatbot that reports jellyfin club activities",
-  "version": "0.1.0",
+  "version": "dev",
   "author": "Nik0kin",
   "bugs": {
     "url": "https://github.com/nik0kin/matrix-jellyfin-bot/issues"
   },
   "dependencies": {
-    "matrix-bot-sdk": "^0.5.6"
+    "jellyfin-apiclient": "^1.4.1",
+    "matrix-bot-sdk": "^0.5.6",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.12",
     "@types/node": "^11.10.5",
+    "@types/node-fetch": "^2.5.7",
     "@typescript-eslint/eslint-plugin": "^4.1.1",
     "@typescript-eslint/parser": "^4.1.1",
     "eslint": "^7.9.0",
@@ -43,7 +46,7 @@
     "build": "tsc --module commonjs",
     "build:watch": "tsc --module commonjs -w",
     "coverage": "jest --collectCoverageFrom=src/**/*.ts --coverage",
-    "dev": "nodemon src/bootstrap.ts --dryrun",
+    "dev": "nodemon src/bootstrap.ts",
     "lint": "eslint . --ext .ts",
     "start": "ts-node src/bootstrap.ts",
     "test": "jest --watch"

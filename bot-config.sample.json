@@ -1,5 +1,7 @@
 {
   "homeserverUrl": "https://localhost",
   "matrixAccessToken": "YourSecretAccessToken",
+  "jellyfinServer": "https://demo.jellyfin.org/stable",
+  "jellyfinUsername": "demo",
   "autoJoin": false
 }

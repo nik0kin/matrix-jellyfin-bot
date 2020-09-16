@@ -12,6 +12,19 @@ export interface Settings {
    */
   matrixAccessToken: string;
   /**
+   * Jellfin server root
+   *  Eg. "https://jellyfin" or "http://your-server/path/to/jellyfin"
+   */
+  jellyfinServer: string;
+  /**
+   * Jellfin login username
+   */
+  jellyfinUsername: string;
+  /**
+   * Jellfin login password
+   */
+  jellyfinPassword: string;
+  /**
    * File used as temporary storage by the bot
    *   Defaults to `bot-storage.json`
    */
