@@ -11,9 +11,10 @@ export function getSingleSearchItemString(
 ) {
   const url = getInfoPageUrl(settings, item);
   const year = item.ProductionYear ? `${item.ProductionYear} ` : '';
+  const episodeLabel = item.Type === 'Episode' ? ` of ${item.SeriesName}` : '';
   return [
-    `View "[${item.Name}](${url} - ${year}${item.Type}`,
-    `View <a href=${url}>${item.Name}</a> - ${year}${item.Type}`,
+    `View "[${item.Name}](${url} - ${year}${item.Type}${episodeLabel}`,
+    `View <a href=${url}>${item.Name}</a> - ${year}${item.Type}${episodeLabel}`,
   ] as const;
 }
 

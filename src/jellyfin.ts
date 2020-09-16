@@ -36,7 +36,7 @@ export async function searchJellyfin(
     IncludeGenres: false,
     IncludeStudios: false,
     IncludeArtists: false,
-    IncludeItemTypes: 'Series',
+    IncludeItemTypes: 'Movie,Series,Episode', // TODO add as default config
     Limit: 1, // TODO take as parameter
     Fields: '',
     Recursive: true,

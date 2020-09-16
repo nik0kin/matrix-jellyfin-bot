@@ -75,6 +75,9 @@ export interface Item {
   BackdropImageTags: any;
   LocationType: string;
   EndDate: string;
+
+  // episode type
+  SeriesName?: string;
 }
 
 export const jellyfin: Jellyfin = jellyfinWhole;
