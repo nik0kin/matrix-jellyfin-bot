@@ -1,5 +1,10 @@
 /* eslint-disable no-console */
-import { createJellyfinClient, searchJellyfin, JellyfinItem } from './jellyfin';
+import {
+  createJellyfinClient,
+  searchJellyfin,
+  JellyfinItem,
+  sortItemsByType,
+} from './jellyfin';
 import { createMatrixClient, sendBotReply } from './matrix-bot';
 import { Settings } from './settings';
 import {
@@ -38,7 +43,7 @@ export async function startBot(settings: Settings) {
     if (event.sender === (await botClient.getUserId())) return;
     if (!event.content || !event.content.body) return;
 
-    const tokens = event.content.body.toLowerCase().split(' ');
+    const tokens = (event.content.body as string).toLowerCase().split(' ');
     const [exec, command, ...rest] = tokens;
 
     // check if exec word is said
@@ -48,12 +53,17 @@ export async function startBot(settings: Settings) {
     if (command !== 'search') return;
 
     const searchTerm = rest.join(' ');
+    const typesOrder = settings.resultsTypeOrder || 'Movie,Series,Episode';
     console.log('searching: ' + searchTerm);
 
     let item: JellyfinItem;
     try {
-      const response = await searchJellyfin(jellyfinClient, userId, searchTerm);
-      item = response.Items[0];
+      const response = await searchJellyfin(jellyfinClient, userId, {
+        term: searchTerm,
+        typesOrder,
+        limit: settings.resultsLimit || 1,
+      });
+      item = sortItemsByType(response.Items, typesOrder.split(','))[0];
     } catch (e) {
       console.error(e);
       return;

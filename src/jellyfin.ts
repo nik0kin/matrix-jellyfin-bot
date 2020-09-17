@@ -27,20 +27,30 @@ export function createJellyfinClient(serverAddress: string) {
 export async function searchJellyfin(
   jellyfinClient: ApiClient,
   userId: string,
-  searchTerm: string
+  search: {
+    term: string;
+    typesOrder: string; // CSV
+    limit: number;
+  }
 ) {
   return await jellyfinClient.getItems(userId, {
-    searchTerm: searchTerm,
+    searchTerm: search.term,
     IncludePeople: false,
     IncludeMedia: true,
     IncludeGenres: false,
     IncludeStudios: false,
     IncludeArtists: false,
-    IncludeItemTypes: 'Movie,Series,Episode', // TODO add as default config
-    Limit: 1, // TODO take as parameter
+    IncludeItemTypes: search.typesOrder,
+    Limit: search.limit,
     Fields: '',
     Recursive: true,
     EnableTotalRecordCount: false,
     ImageTypeLimit: 1,
+  });
+}
+
+export function sortItemsByType(items: Item[], typeOrder: string[]) {
+  return items.sort((itemA, itemB) => {
+    return typeOrder.indexOf(itemA.Type) - typeOrder.indexOf(itemB.Type);
   });
 }

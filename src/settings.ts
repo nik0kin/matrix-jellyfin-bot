@@ -38,4 +38,18 @@ export interface Settings {
    *   Defaults to `false`
    */
   autoJoin?: boolean;
+
+  //// SEARCH DEFAULTS ////
+
+  /**
+   * Order to show the result (TODO better description)
+   *   Defaults to `Movie,Series,Episode`
+   */
+  resultsTypeOrder?: string;
+
+  /**
+   * Number of results
+   *   Defaults to `1`
+   */
+  resultsLimit?: number;
 }
