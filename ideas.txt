@@ -23,3 +23,23 @@ Feature 2: Get Random Media
 
 !jellyfin random "Top Cat"
   -> View "[Top Cat](${topCatUrl}" ep 19 "[The Grand Tour](${epUrl}"
+
+Help
+
+!jf help or invalid command
+  -> Search a jellyfin media server! OR Unrecognized command: xyz
+
+  Usage:
+    `!jf [COMMAND]`
+    `!jellyfin [COMMAND]`
+    `!jellyfin [COMMAND]:[ARG1]:[ARG2]`
+
+  Commands:
+   - help         Display this help message
+   - search       Search for content
+      - Arg1  resultsLimit (default: 1)
+      - Arg2  resultsTypeOrder (default: "Movie,Series,Episode")
+      - Examples
+        1. `!jf search Cat Videos`
+        2. `!jf search:5 Dogs`
+        3. `!jf search:20:Series Tiger`

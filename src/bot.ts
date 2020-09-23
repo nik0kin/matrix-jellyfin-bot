@@ -1,17 +1,9 @@
 /* eslint-disable no-console */
-import {
-  createJellyfinClient,
-  searchJellyfin,
-  JellyfinItem,
-  sortItemsByType,
-} from './jellyfin';
+import { helpCommand } from './commands/help';
+import { searchCommand } from './commands/search';
+import { createJellyfinClient } from './jellyfin';
 import { createMatrixClient, sendBotReply } from './matrix-bot';
 import { Settings } from './settings';
-import {
-  getSingleSearchItemString,
-  getSingleSearchNoResultsString,
-  getMultipleSearchResultsString,
-} from './message-formatter';
 
 const PROMPT_WORD_DEFAULTS = ['!jellyfin', '!jf'];
 
@@ -62,44 +54,25 @@ export async function startBot(settings: Settings) {
     // check if prompt word is said
     if (!PROMPT_WORD_DEFAULTS.includes(prompt)) return;
 
-    // check if command=search
-    const [command, limitArg, typeOrderArg] = commandToken.split(':');
-    if (command !== 'search') return;
+    // check command
+    const [command, arg1, arg2] = commandToken.split(':');
 
-    const searchTerm = rest.join(' ');
-    const typesOrder =
-      typeOrderArg || settings.resultsTypeOrder || 'Movie,Series,Episode';
-
-    const limit = limitArg ? Number(limitArg) : 1;
-    if (isNaN(limit)) {
-      // TODO better help message
-      return reply('Limit is not a number. The 1st argument shall be a number');
+    switch (command) {
+      case 'help':
+        helpCommand(settings, reply);
+        break;
+      case 'search':
+        searchCommand(
+          settings,
+          [userId, jellyfinClient],
+          reply,
+          arg1,
+          arg2,
+          rest
+        );
+        break;
+      default:
+        helpCommand(settings, reply, command);
     }
-
-    let items: JellyfinItem[];
-    try {
-      console.log('searching: ' + searchTerm);
-      const response = await searchJellyfin(jellyfinClient, userId, {
-        term: searchTerm,
-        typesOrder,
-        limit,
-      });
-      items = sortItemsByType(response.Items, typesOrder.split(','));
-    } catch (e) {
-      console.error(e);
-      return;
-    }
-
-    if (!items.length) {
-      return reply(getSingleSearchNoResultsString(searchTerm));
-    }
-
-    if (items.length === 1) {
-      return reply(...getSingleSearchItemString(settings, items[0]));
-    }
-
-    return reply(
-      ...getMultipleSearchResultsString(settings, searchTerm, items)
-    );
   });
 }
