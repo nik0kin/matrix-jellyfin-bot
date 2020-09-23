@@ -12,7 +12,7 @@ import {
 import { Settings } from '../settings';
 
 export async function searchCommand(
-  settings: Settings,
+  settings: Required<Settings>,
   [userId, jellyfinClient]: [string, ApiClient],
   reply: (message: string, formattedMessage?: string) => void,
   limitArg: string,
@@ -20,10 +20,9 @@ export async function searchCommand(
   rest: string[]
 ) {
   const searchTerm = rest.join(' ');
-  const typesOrder =
-    typeOrderArg || settings.resultsTypeOrder || 'Movie,Series,Episode';
+  const typesOrder = typeOrderArg || settings.resultsTypeOrder;
 
-  const limit = limitArg ? Number(limitArg) : 1;
+  const limit = limitArg ? Number(limitArg) : settings.resultsLimit;
   if (isNaN(limit)) {
     // TODO better help message
     return reply('Limit is not a number. The 1st argument shall be a number');

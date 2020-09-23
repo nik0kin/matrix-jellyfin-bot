@@ -33,6 +33,12 @@ export interface Settings {
   //// OPERATIONS ////
 
   /**
+   * Words to prompt the bot to respond.
+   *   Defaults to `'!jellyfin', '!jf'`
+   */
+  promptWords?: string[];
+
+  /**
    * Should the bot auto accept invites to rooms?
    *    (Probably not if you want your Jellyfin server private)
    *   Defaults to `false`

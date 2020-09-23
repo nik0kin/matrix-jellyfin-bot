@@ -5,10 +5,8 @@ import {
 } from 'matrix-bot-sdk';
 import { Settings } from './settings';
 
-export function createMatrixClient(settings: Settings) {
-  const storage = new SimpleFsStorageProvider(
-    settings.storageFile || 'bot-storage.json'
-  );
+export function createMatrixClient(settings: Required<Settings>) {
+  const storage = new SimpleFsStorageProvider(settings.storageFile);
   const client = new MatrixClient(
     settings.homeserverUrl,
     settings.matrixAccessToken,

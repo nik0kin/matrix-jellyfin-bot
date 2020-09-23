@@ -5,12 +5,19 @@ import { createJellyfinClient } from './jellyfin';
 import { createMatrixClient, sendBotReply } from './matrix-bot';
 import { Settings } from './settings';
 
-const PROMPT_WORD_DEFAULTS = ['!jellyfin', '!jf'];
-
 /**
  * Starts the Matrix bot
  */
-export async function startBot(settings: Settings) {
+export async function startBot(userSettings: Settings) {
+  const settings: Required<Settings> = {
+    storageFile: 'bot-storage.json',
+    promptWords: ['!jellyfin', '!jf'],
+    autoJoin: false,
+    resultsTypeOrder: 'Movie,Series,Episode',
+    resultsLimit: 1,
+    ...userSettings,
+  };
+
   // Connect to Matrix
   const botClient = createMatrixClient(settings);
   await botClient.start();
@@ -52,7 +59,7 @@ export async function startBot(settings: Settings) {
     const [prompt, commandToken, ...rest] = tokens;
 
     // check if prompt word is said
-    if (!PROMPT_WORD_DEFAULTS.includes(prompt)) return;
+    if (!settings.promptWords.includes(prompt)) return;
 
     // check command
     const [command, arg1, arg2] = commandToken.split(':');

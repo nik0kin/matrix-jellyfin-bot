@@ -1,7 +1,7 @@
 import { Settings } from '../settings';
 
 export async function helpCommand(
-  settings: Settings,
+  settings: Required<Settings>,
   reply: (message: string, formattedMessage?: string) => void,
   invalidCommand?: string
 ) {
@@ -12,21 +12,20 @@ export async function helpCommand(
   }
 
   Usage:
-    \`!jf [COMMAND]\`
-    \`!jellyfin [COMMAND]\`
-    \`!jellyfin [COMMAND]:[ARG1]:[ARG2]\`
+${settings.promptWords.map((word) => `    - \`${word} [COMMAND]\``).join('\n')}
+    - \`${settings.promptWords[0]} [COMMAND]:[ARG1]:[ARG2]\`
 
   Commands:
-   - help         Display this help message
-   - search       Search for content
+   - \`help\`         Display this help message
+   - \`search\`       Search for content
       - Arg1  resultsLimit (default: ${settings.resultsLimit})
       - Arg2  resultsTypeOrder (default: "${
         settings.resultsTypeOrder
       }") - filter results by media type, and return results in a given order
       - Examples
-        1. \`!jf search Cat Videos\`
-        2. \`!jf search:5 Dogs\`
-        3. \`!jf search:20:Series Tiger\`
+        1. \`${settings.promptWords[0]} search Cat Videos\`
+        2. \`${settings.promptWords[0]} search:5 Dogs\`
+        3. \`${settings.promptWords[0]} search:20:Series Tiger\`
 `;
 
   reply(message);
