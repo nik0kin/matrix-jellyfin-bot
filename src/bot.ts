@@ -55,16 +55,16 @@ export async function startBot(userSettings: Settings) {
         formattedMessage
       );
 
-    const tokens = (event.content.body as string).toLowerCase().split(' ');
+    const tokens = (event.content.body as string).split(' ');
     const [prompt, commandToken, ...rest] = tokens;
 
     // check if prompt word is said
-    if (!settings.promptWords.includes(prompt)) return;
+    if (!settings.promptWords.includes(prompt.toLowerCase())) return;
 
     // check command
-    const [command, arg1, arg2] = commandToken.split(':');
+    const [command, arg1, arg2] = (commandToken || '').split(':');
 
-    switch (command) {
+    switch (command.toLowerCase()) {
       case 'help':
         helpCommand(settings, reply);
         break;
