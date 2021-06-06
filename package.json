@@ -1,32 +1,32 @@
 {
   "name": "matrix-jellyfin-bot",
   "description": "A chatbot that reports jellyfin club activities",
-  "version": "dev",
+  "version": "0.1.0-rc",
   "author": "Nik0kin",
   "bugs": {
     "url": "https://github.com/nik0kin/matrix-jellyfin-bot/issues"
   },
   "dependencies": {
     "jellyfin-apiclient": "^1.4.1",
-    "marked": "^1.2.0",
-    "matrix-bot-sdk": "^0.5.6",
+    "marked": "^2.0.6",
+    "matrix-bot-sdk": "^0.5.18",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.12",
-    "@types/marked": "^1.1.0",
+    "@types/marked": "^2.0.3",
     "@types/node": "^11.10.5",
     "@types/node-fetch": "^2.5.7",
-    "@typescript-eslint/eslint-plugin": "^4.1.1",
-    "@typescript-eslint/parser": "^4.1.1",
-    "eslint": "^7.9.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.4.2",
-    "nodemon": "^1.18.10",
-    "prettier": "^2.1.1",
-    "ts-jest": "^26.3.0",
-    "ts-node": "^8.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^27.0.1",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.0",
+    "ts-jest": "^27.0.1",
+    "ts-node": "^9.1.1",
     "typescript": "^3.7.2"
   },
   "files": [
