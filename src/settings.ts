@@ -18,12 +18,22 @@ export interface Settings {
   jellyfinServer: string;
   /**
    * Jellyfin login username
+   *   username/password or apiKey is required!
    */
-  jellyfinUsername: string;
+  jellyfinUsername?: string;
   /**
    * Jellyfin login password
    */
-  jellyfinPassword: string | undefined;
+  jellyfinPassword?: string | undefined;
+  /**
+   * Jellyfin Api Key can be used instead of a username/password to authenticate
+   */
+  jellyfinApiKey?: string;
+  /**
+   * Jellyfin UserId to be passed with ApiKey-authed requests
+   *   Dev Note: I'm not sure if there's a way to skip requiring this with ApiKeys
+   */
+  jellyfinUserId?: string;
   /**
    * File used as temporary storage by the bot
    *   Defaults to `bot-storage.json`
@@ -48,7 +58,7 @@ export interface Settings {
   //// SEARCH DEFAULTS ////
 
   /**
-   * Order to show the result (TODO better description)
+   * Search results are grouped by type. Prioritize the order
    *   Defaults to `Movie,Series,Episode`
    */
   resultsTypeOrder?: string;

@@ -52,7 +52,7 @@ export function getMultipleSearchResultsString(
 }
 
 function getInfoPageUrl(settings: Required<Settings>, item: JellyfinItem) {
-  return `${settings.jellyfinServer}/web/index.html#!/itemdetails.html?id=${item.Id}`; // do I need serverId query parameter here?
+  return `${settings.jellyfinServer}/web/index.html#!/details?id=${item.Id}`; // do I need serverId query parameter here?
 }
 
 function getItemLink(settings: Required<Settings>, item: JellyfinItem) {

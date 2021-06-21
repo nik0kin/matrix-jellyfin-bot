@@ -24,8 +24,7 @@ export async function searchCommand(
 
   const limit = limitArg ? Number(limitArg) : settings.resultsLimit;
   if (isNaN(limit)) {
-    // TODO better help message
-    return reply('Limit is not a number. The 1st argument shall be a number');
+    return reply(`${limit} is not a number. The 1st argument must be a number`);
   }
 
   let items: JellyfinItem[];

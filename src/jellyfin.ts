@@ -1,3 +1,4 @@
+const pkg = require('../package.json');
 import { jellyfin, ApiClient, Item } from './jellyfin-types';
 
 export { ApiClient, Item as JellyfinItem };
@@ -5,21 +6,13 @@ export { ApiClient, Item as JellyfinItem };
 import nodeFetch from 'node-fetch';
 (global as any).fetch = nodeFetch;
 
-// const apiClient = new typedJellyfin.ApiClient(
-//   'https://demo.jellyfin.org/stable',
-//   'Jellyfin Web',
-//   '10.5.0',
-//   'Firefox',
-//   'TW96aWxsYS81LjAgKFgxMTsgTGludXggeDg2XzY0OyBydjo3NC4wKSBHZWNrby8yMDEwMDEwMSBGaXJlZm94Lzc0LjB8MTU4NDkwMTA5OTY3NQ11'
-// );
-
-export function createJellyfinClient(serverAddress: string) {
+export function createJellyfinClient(serverAddress: string, deviceId: string) {
   const apiClient = new jellyfin.ApiClient(
     serverAddress,
-    'matrix-jellyfin-bot',
-    'dev-version',
-    'Firefox',
-    'TW96aWxsYS81LjAgKFgxMTsgTGludXggeDg2XzY0OyBydjo3NC4wKSBHZWNrby8yMDEwMDEwMSBGaXJlZm94Lzc0LjB8MTU4NDkwMTA5OTY3NQ11'
+    pkg.name,
+    pkg.version,
+    'NodeJS',
+    deviceId
   );
   return apiClient;
 }

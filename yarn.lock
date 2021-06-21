@@ -2860,10 +2860,10 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
-jellyfin-apiclient@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/jellyfin-apiclient/-/jellyfin-apiclient-1.4.1.tgz#5e544a19bc001b16669eb7ecf46bb7d652365e41"
-  integrity sha512-BTTRucQ4tCLyiZ9kR9nAoxqxYp5/z+MCzkayy9vmMZ5C7jlVVsnxAXuuZjoa+AgXMjohXcM5Ci54myfJM1pRkA==
+jellyfin-apiclient@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/jellyfin-apiclient/-/jellyfin-apiclient-1.8.0.tgz#e61d5b157cc1263f1ae99c3bcc03b0df9280339b"
+  integrity sha512-fwAF1G89amm3uO2Yw0E26fW5X6JoyRUnOdBEeuSN04/NpdKKVHD4u53dgqF0jHzXNuKdn5eh0AuV37cMKzBanA==
 
 jest-changed-files@^27.0.2:
   version "27.0.2"

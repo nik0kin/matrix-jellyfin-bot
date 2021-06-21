@@ -58,3 +58,19 @@ export function sendBotReply(
       : {}),
   });
 }
+
+export function getDeviceId(botClient: MatrixClient) {
+  const savedValue = (
+    botClient.storageProvider as SimpleFsStorageProvider
+  ).readValue('deviceId');
+  if (savedValue) return savedValue;
+
+  const newValue = Buffer.from('bot_' + new Date().getTime())
+    .toString('base64')
+    .replace(/=/g, '1');
+  (botClient.storageProvider as SimpleFsStorageProvider).storeValue(
+    'deviceId',
+    newValue
+  );
+  return newValue;
+}

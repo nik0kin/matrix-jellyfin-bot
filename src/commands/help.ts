@@ -34,3 +34,5 @@ Commands:
 
   reply(message, marked(message));
 }
+
+// [COMMAND]:[ARG1]:[ARG2] then the search command might confuse people because the searchTerm is the main argument

@@ -2,7 +2,7 @@
 import { helpCommand } from './commands/help';
 import { searchCommand } from './commands/search';
 import { createJellyfinClient } from './jellyfin';
-import { createMatrixClient, sendBotReply } from './matrix-bot';
+import { createMatrixClient, sendBotReply, getDeviceId } from './matrix-bot';
 import { Settings } from './settings';
 
 /**
@@ -13,6 +13,10 @@ export async function startBot(userSettings: Settings) {
     storageFile: 'bot-storage.json',
     promptWords: ['!jellyfin', '!jf'],
     autoJoin: false,
+    jellyfinUsername: '',
+    jellyfinPassword: undefined as any,
+    jellyfinApiKey: '',
+    jellyfinUserId: '',
     resultsTypeOrder: 'Movie,Series,Episode',
     resultsLimit: 1,
     ...userSettings,
@@ -22,16 +26,32 @@ export async function startBot(userSettings: Settings) {
   const botClient = createMatrixClient(settings);
   await botClient.start();
 
-  const jellyfinClient = createJellyfinClient(settings.jellyfinServer);
+  const jellyfinClient = createJellyfinClient(
+    settings.jellyfinServer,
+    getDeviceId(botClient)
+  );
   let userId: string;
 
   try {
-    const auth = await jellyfinClient.authenticateUserByName(
-      settings.jellyfinUsername,
-      settings.jellyfinPassword
-    );
-    jellyfinClient.setAuthenticationInfo(auth.AccessToken, auth.User.Id);
-    userId = auth.User.Id;
+    // let auth;
+    if (settings.jellyfinUsername) {
+      const auth = await jellyfinClient.authenticateUserByName(
+        settings.jellyfinUsername,
+        settings.jellyfinPassword
+      );
+      jellyfinClient.setAuthenticationInfo(auth.AccessToken, auth.User.Id);
+      userId = auth.User.Id;
+    } else if (settings.jellyfinApiKey) {
+      jellyfinClient.setAuthenticationInfo(
+        settings.jellyfinApiKey,
+        settings.jellyfinUserId
+      );
+      userId = settings.jellyfinUserId;
+    } else {
+      throw new Error(
+        'Must set `jellyfinUsername` or `jellyfinApiKey` in settings'
+      );
+    }
   } catch (e) {
     console.error('Something went wrong authenticating with Jellyfin', e);
     return;

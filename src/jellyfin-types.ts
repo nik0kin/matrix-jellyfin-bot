@@ -1,4 +1,3 @@
-(global as any).window = {};
 (global as any).self = {};
 
 // @ts-ignore

@@ -2,6 +2,11 @@
 
 Talk to your media server.
 
+```
+Human: !jf search frank
+Bot: View "[Lady Frankenstein](http://localhost:8096/web/index.html#!/details?id=d8ca1a7d9ae2a9516c638cefa8968684)" - 1971 Movie
+```
+
 ## Develop
 
 ```
@@ -13,8 +18,11 @@ yarn dev
 
 ### Bootstrap mode
 
+Running as a background process via pm2:
+
 ```
-# clone repo
+# clone this repo and cd inside of it
+
 yarn install
 
 cp bot-config.sample.json bot-config.json
@@ -26,8 +34,10 @@ pm2 start pm2.config.js
 
 ### As a Node.js package
 
+Programatically with javascript/typescript:
+
 ```
-yarn add matrix-jellyfin-bot
+yarn add matrix-pinballmap-bot
 ```
 
 ```
@@ -43,4 +53,3 @@ startBot(config);
 ## Config
 
 See [settings.ts](./src/settings.ts) for config descriptions
-

@@ -7,7 +7,7 @@
     "url": "https://github.com/nik0kin/matrix-jellyfin-bot/issues"
   },
   "dependencies": {
-    "jellyfin-apiclient": "^1.4.1",
+    "jellyfin-apiclient": "^1.8.0",
     "marked": "^2.0.6",
     "matrix-bot-sdk": "^0.5.18",
     "node-fetch": "^2.6.1"
