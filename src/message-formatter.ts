@@ -11,10 +11,13 @@ export function getJellyfinItemString(
 ) {
   const year = item.ProductionYear ? `${item.ProductionYear} ` : '';
   const episodeLabel = item.Type === 'Episode' ? ` of ${item.SeriesName}` : '';
+  const audioLabel =
+    item.Type === 'Audio' && item.Album ? ` - ${item.Album}` : '';
+  const albumArtistLabel = item.AlbumArtist ? ` - ${item.AlbumArtist}` : '';
   const [link, formattedLink] = getItemLink(settings, item);
   return [
     `"${link}" - ${year}${item.Type}${episodeLabel}`,
-    `"${formattedLink}" - ${year}${item.Type}${episodeLabel}`,
+    `"${formattedLink}" - ${year}${item.Type}${episodeLabel}${audioLabel}${albumArtistLabel}`,
   ] as const;
 }
 

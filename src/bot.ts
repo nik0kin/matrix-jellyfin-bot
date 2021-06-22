@@ -17,7 +17,7 @@ export async function startBot(userSettings: Settings) {
     jellyfinPassword: undefined as any,
     jellyfinApiKey: '',
     jellyfinUserId: '',
-    resultsTypeOrder: 'Movie,Series,Episode',
+    resultsTypeOrder: 'Movie,Series,Episode,MusicAlbum,Audio,MusicArtist',
     resultsLimit: 1,
     ...userSettings,
   };
@@ -33,7 +33,6 @@ export async function startBot(userSettings: Settings) {
   let userId: string;
 
   try {
-    // let auth;
     if (settings.jellyfinUsername) {
       const auth = await jellyfinClient.authenticateUserByName(
         settings.jellyfinUsername,

@@ -75,8 +75,14 @@ export interface Item {
   LocationType: string;
   EndDate: string;
 
-  // episode type
+  // Episode type
   SeriesName?: string;
+
+  // MusicAlbum or Audio type
+  AlbumArtist?: string;
+
+  // Audio type
+  Album?: string;
 }
 
 export const jellyfin: Jellyfin = jellyfinWhole;

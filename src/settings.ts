@@ -59,7 +59,7 @@ export interface Settings {
 
   /**
    * Search results are grouped by type. Prioritize the order
-   *   Defaults to `Movie,Series,Episode`
+   *   Defaults to `Movie,Series,Episode,MusicAlbum,Audio,MusicArtist`
    */
   resultsTypeOrder?: string;
 
