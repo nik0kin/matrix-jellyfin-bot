@@ -2,8 +2,14 @@
 import { helpCommand } from './commands/help';
 import { searchCommand } from './commands/search';
 import { createJellyfinClient } from './jellyfin';
-import { createMatrixClient, sendBotReply, getDeviceId } from './matrix-bot';
+import {
+  createMatrixClient,
+  sendMessageToAllJoinedRooms,
+  sendBotReply,
+  getDeviceId,
+} from './matrix-bot';
 import { Settings } from './settings';
+import { onNotification } from './notifications';
 
 /**
  * Starts the Matrix bot
@@ -17,6 +23,7 @@ export async function startBot(userSettings: Settings) {
     jellyfinPassword: undefined as any,
     jellyfinApiKey: '',
     jellyfinUserId: '',
+    notifications: false,
     resultsTypeOrder: 'Movie,Series,Episode,MusicAlbum,Audio,MusicArtist',
     resultsLimit: 1,
     ...userSettings,
@@ -54,6 +61,12 @@ export async function startBot(userSettings: Settings) {
   } catch (e) {
     console.error('Something went wrong authenticating with Jellyfin', e);
     return;
+  }
+
+  if (settings.notifications) {
+    onNotification(jellyfinClient, (notification) => {
+      sendMessageToAllJoinedRooms(botClient, JSON.stringify(notification));
+    });
   }
 
   console.log('JellyfinBot online');

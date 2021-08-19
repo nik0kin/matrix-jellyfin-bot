@@ -11,6 +11,7 @@ interface Jellyfin {
     deviceName: string,
     deviceId: string
   ) => ApiClient;
+  Events: EventsType;
 }
 
 export interface ApiClient {
@@ -35,23 +36,31 @@ export interface ApiClient {
     AccessToken: string;
   }>;
   setAuthenticationInfo(accessToken: string, userId: string): void;
+  getCurrentUser(): any;
+  getCurrentUserId(): any;
   getItems(
     userId?: string,
     options?: {
-      searchTerm: string;
-      IncludePeople: boolean;
-      IncludeMedia: boolean;
-      IncludeGenres: boolean;
-      IncludeStudios: boolean;
-      IncludeArtists: boolean;
-      IncludeItemTypes: string; // 'Series'
-      Limit: number;
-      Fields: string; // CSV
-      Recursive: boolean;
-      EnableTotalRecordCount: boolean;
-      ImageTypeLimit: number;
+      searchTerm?: string;
+      IncludePeople?: boolean;
+      IncludeMedia?: boolean;
+      IncludeGenres?: boolean;
+      IncludeStudios?: boolean;
+      IncludeArtists?: boolean;
+      IncludeItemTypes?: string; // 'Series'
+      Limit?: number;
+      Fields?: string; // CSV
+      Filters?: string;
+      Recursive?: boolean;
+      EnableTotalRecordCount?: boolean;
+      ImageTypeLimit?: number;
+      SortBy?: string;
+      SortOrder?: string;
+      Ids?: string; // CSV
+      MediaTypes?: string; // CSV
     }
   ): Promise<{ Items: Item[]; TotalRecordCount: number; StartIndex: number }>;
+  serverInfo(): any;
 }
 
 export interface Item {
@@ -83,6 +92,16 @@ export interface Item {
 
   // Audio type
   Album?: string;
+}
+
+interface EventsType {
+  on: (
+    serverNotifications: any,
+    type: string,
+    callback: (e: any, apiClient: ApiClient, data: any) => void
+  ) => void;
+  off: (...args: any[]) => void;
+  trigger: (...args: any[]) => void;
 }
 
 export const jellyfin: Jellyfin = jellyfinWhole;

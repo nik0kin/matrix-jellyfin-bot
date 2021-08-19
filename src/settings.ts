@@ -55,6 +55,14 @@ export interface Settings {
    */
   autoJoin?: boolean;
 
+  /**
+   * Should the bot echo jellyfin notifications?
+   *    (Probably not if you want your Jellyfin server private)
+   *   Defaults to `false`
+   * experimental feature
+   */
+  notifications?: boolean;
+
   //// SEARCH DEFAULTS ////
 
   /**

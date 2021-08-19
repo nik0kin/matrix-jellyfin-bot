@@ -36,6 +36,28 @@ export function sendBotMessage(
   });
 }
 
+export async function sendMessageToAllJoinedRooms(
+  client: MatrixClient,
+  message: string,
+  htmlFormattedMessage?: string
+) {
+  const rooms = await client.getJoinedRooms();
+  const promises = rooms.map(async (roomId) => {
+    const eventId = await client.sendMessage(roomId, {
+      msgtype: 'm.notice',
+      body: message,
+      ...(htmlFormattedMessage
+        ? {
+            format: 'org.matrix.custom.html',
+            formatted_body: htmlFormattedMessage,
+          }
+        : {}),
+    });
+    return [roomId, eventId];
+  });
+  return Promise.all(promises);
+}
+
 export function sendBotReply(
   botClient: MatrixClient,
   roomId: string,
