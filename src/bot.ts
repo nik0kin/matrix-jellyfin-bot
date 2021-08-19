@@ -9,6 +9,7 @@ import {
   getDeviceId,
 } from './matrix-bot';
 import { Settings } from './settings';
+import { startWebhookServer } from './notification-server';
 
 /**
  * Starts the Matrix bot
@@ -22,7 +23,7 @@ export async function startBot(userSettings: Settings) {
     jellyfinPassword: undefined as any,
     jellyfinApiKey: '',
     jellyfinUserId: '',
-    notifications: false,
+    jellyfinWebhookPluginNotifications: undefined as any,
     resultsTypeOrder: 'Movie,Series,Episode,MusicAlbum,Audio,MusicArtist',
     resultsLimit: 1,
     ...userSettings,
@@ -62,24 +63,15 @@ export async function startBot(userSettings: Settings) {
     return;
   }
 
-  if (settings.notifications) {
-    // jellyfinClient.ensureWebSocket();
-
-    // onNotification((notification) => {
-    //   const message = JSON.stringify(notification);
-    //   console.log('notification: ' + message);
-    //   sendMessageToAllJoinedRooms(botClient, message);
-    // });
-    setInterval(() => {
-      (jellyfinClient as any).getNotifications(userId)
-        .then((notifications: { Notifications: any[], TotalRecordCount: number }) => {
-          const message = JSON.stringify(notifications);
-          console.log('notification: ' + message);
-          if (notifications.Notifications.length > 0) {
-            sendMessageToAllJoinedRooms(botClient, message);
-          }
-        });
-    }, 1000 * 60 * 5);
+  if (settings.jellyfinWebhookPluginNotifications) {
+    startWebhookServer(
+      settings.jellyfinWebhookPluginNotifications.port,
+      (notification) => {
+        const message = JSON.stringify(notification);
+        console.log('notification: ' + message);
+        sendMessageToAllJoinedRooms(botClient, message);
+      }
+    );
   }
 
   console.log('JellyfinBot online');

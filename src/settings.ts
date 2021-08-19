@@ -61,7 +61,10 @@ export interface Settings {
    *   Defaults to `false`
    * experimental feature
    */
-  notifications?: boolean;
+  jellyfinWebhookPluginNotifications?: {
+    port: number;
+    secret?: string;
+  };
 
   //// SEARCH DEFAULTS ////
 
