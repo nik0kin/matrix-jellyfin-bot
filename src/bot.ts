@@ -9,7 +9,6 @@ import {
   getDeviceId,
 } from './matrix-bot';
 import { Settings } from './settings';
-import { onNotification } from './notifications';
 
 /**
  * Starts the Matrix bot
@@ -64,9 +63,23 @@ export async function startBot(userSettings: Settings) {
   }
 
   if (settings.notifications) {
-    onNotification(jellyfinClient, (notification) => {
-      sendMessageToAllJoinedRooms(botClient, JSON.stringify(notification));
-    });
+    // jellyfinClient.ensureWebSocket();
+
+    // onNotification((notification) => {
+    //   const message = JSON.stringify(notification);
+    //   console.log('notification: ' + message);
+    //   sendMessageToAllJoinedRooms(botClient, message);
+    // });
+    setInterval(() => {
+      (jellyfinClient as any).getNotifications(userId)
+        .then((notifications: { Notifications: any[], TotalRecordCount: number }) => {
+          const message = JSON.stringify(notifications);
+          console.log('notification: ' + message);
+          if (notifications.Notifications.length > 0) {
+            sendMessageToAllJoinedRooms(botClient, message);
+          }
+        });
+    }, 1000 * 60 * 5);
   }
 
   console.log('JellyfinBot online');

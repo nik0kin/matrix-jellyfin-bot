@@ -61,6 +61,7 @@ export interface ApiClient {
     }
   ): Promise<{ Items: Item[]; TotalRecordCount: number; StartIndex: number }>;
   serverInfo(): any;
+  ensureWebSocket(): void;
 }
 
 export interface Item {
